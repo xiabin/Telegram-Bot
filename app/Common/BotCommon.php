@@ -21,7 +21,7 @@ class BotCommon
      * @return bool
      * @throws TelegramException
      */
-    public static function isAdmin(Message $message, ?Telegram $telegram = null): bool
+        public static function isAdmin(Message $message, ?Telegram $telegram = null): bool
     {
         if ($telegram) {
             return $telegram->isAdmin($message->getFrom()->getId());
