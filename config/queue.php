@@ -3,7 +3,7 @@ return [
     'default' => 'redis',
     'connections' => [
         'redis' => [
-            'driver' => 'redis',
+            'driver' => 'sync',
             'connection' => 'queue',
             'queue' => 'queue',
             'retry_after' => 60,

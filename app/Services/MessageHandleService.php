@@ -28,50 +28,11 @@ class MessageHandleService extends BaseService
     {
         $message = $update->getMessage();
         $messageType = $message->getType();
-        $this->addHandler('ANY', KeywordHandleService::class);
+//        $this->addHandler('ANY', KeywordHandleService::class);
         $this->addHandler('command', CommandHandleService::class);
-        $this->addHandler('sticker', StickerHandleService::class);
+//        $this->addHandler('sticker', StickerHandleService::class);
         $this->runHandler($messageType, $message, $telegram, $updateId);
-//            'command':
-//            'text':
-//            'audio':
-//            'animation':
-//            'document':
-//            'game':
-//            'photo':
-//            'sticker':
-//            'video':
-//            'voice':
-//            'video_note':
-//            'contact':
-//            'location':
-//            'venue':
-//            'poll':
-//            'new_chat_members':
-//            'left_chat_member':
-//            'new_chat_title':
-//            'new_chat_photo':
-//            'delete_chat_photo':
-//            'group_chat_created':
-//            'supergroup_chat_created':
-//            'channel_chat_created':
-//            'message_auto_delete_timer_changed':
-//            'migrate_to_chat_id':
-//            'migrate_from_chat_id':
-//            'pinned_message':
-//            'invoice':
-//            'successful_payment':
-//            'passport_data':
-//            'proximity_alert_triggered':
-//            'forum_topic_created':
-//            'forum_topic_closed':
-//            'forum_topic_reopened':
-//            'voice_chat_scheduled':
-//            'voice_chat_started':
-//            'voice_chat_ended':
-//            'voice_chat_participants_invited':
-//            'web_app_data':
-//            'reply_markup':
+//
     }
 
     /**

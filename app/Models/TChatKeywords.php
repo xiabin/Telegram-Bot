@@ -30,9 +30,9 @@ class TChatKeywords extends BaseModel
     public static function getKeywords(int $chat_id): array
     {
         $data = Cache::get("DB::TChatKeywords::chat_keywords::{$chat_id}");
-        if (is_array($data)) {
-            return $data;
-        }
+//        if (is_array($data)) {
+//            return $data;
+//        }
         $data = self::query()
             ->select('keyword', 'target', 'operation', 'data')
             ->where('chat_id', $chat_id)
@@ -41,5 +41,20 @@ class TChatKeywords extends BaseModel
             ->toArray();
         Cache::put("DB::TChatKeywords::chat_keywords::{$chat_id}", $data, Carbon::now()->addMinutes(5));
         return $data;
+    }
+
+
+    public static function addKeyWord($chat_id, $keyword, $target, $operation, $data, $enable)
+    {
+        self::query()
+            ->create(
+                [
+                    'chat_id' => $chat_id,
+                    'keyword' => $keyword,
+                    'target' => $target,
+                    'operation' => $operation,
+                    'data' => $data,
+                ]
+            );
     }
 }

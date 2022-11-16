@@ -7,12 +7,15 @@ use App\Common\IP;
 use App\Jobs\WebhookJob;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Longman\TelegramBot\Entities\Update;
 
 class Fetch extends Command
 {
+    use DispatchesJobs;
+
     /**
      * The name and signature of the console command.
      *
@@ -36,16 +39,19 @@ class Fetch extends Command
     {
         $telegram = BotCommon::getTelegram();
 
-        $res =  $telegram->useGetUpdatesWithoutDatabase()->handleGetUpdates();
-        $results  = $res->getResult();
-        foreach ($results as $value){
-            $update = new Update($value, $telegram->getBotUsername());
-            $updateId = $update->getUpdateId();
-            self::info($updateId);
+        $res = $telegram->useGetUpdatesWithoutDatabase()->handleGetUpdates();
 
+        $results = $res->getResult();
+        /**
+         * @var $value Update
+         */
+        foreach ($results as $update) {
+            $updateId = $update->getUpdateId();
+            self::info($update);
+            self::info($updateId);
+            $this->dispatch(new WebhookJob($update, $telegram, $updateId));
         }
 
-//        $this->dispatch(new WebhookJob($update, $telegram, $updateId));
 
     }
 }
