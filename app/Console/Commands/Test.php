@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Common\BotCommon;
+use App\Models\Message;
 use Illuminate\Console\Command;
 
 class Test extends Command
@@ -12,9 +13,9 @@ class Test extends Command
 
     public function handle(): int
     {
-        $telegram = BotCommon::getTelegram();
-        $cmds = $telegram->addCommandClass();
-        self::info(json_encode($cmds));
+
+        $data  =  Message::queryCount(-1001850206305,5370041724,0);
+        self::info($data);
         return self::SUCCESS;
     }
 }

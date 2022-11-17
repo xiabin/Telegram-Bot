@@ -10,6 +10,7 @@ use Illuminate\Console\Command;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Longman\TelegramBot\Entities\Update;
 
 class Fetch extends Command
@@ -42,13 +43,12 @@ class Fetch extends Command
         $res = $telegram->useGetUpdatesWithoutDatabase()->handleGetUpdates();
 
         $results = $res->getResult();
+        Log::info("收到：" . count($results) . '条消息');
         /**
          * @var $value Update
          */
         foreach ($results as $update) {
             $updateId = $update->getUpdateId();
-            self::info($update);
-            self::info($updateId);
             $this->dispatch(new WebhookJob($update, $telegram, $updateId));
         }
 

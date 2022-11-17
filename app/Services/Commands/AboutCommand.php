@@ -76,6 +76,6 @@ class AboutCommand extends BaseCommand
             'url' => 'https://t.me/hf_lsj',
         ]);
         $data['reply_markup']->addRow($usage, $privacy);
-        $this->dispatch(new SendMessageJob($data,null,0));
+        $this->dispatch(new SendMessageJob($data,null,60));
     }
 }
