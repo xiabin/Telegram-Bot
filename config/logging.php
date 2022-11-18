@@ -17,7 +17,7 @@ foreach ($channels as $channel) {
     $logging['channels'][$channel]['name'] = $channel;
     $logging['channels'][$channel]['path'] = storage_path("logs/$date.$channel.log");
     $logging['channels'][$channel]['formatter'] = LogFormatter::class;
-    $logging['channels'][$channel]['level'] = 'debug';
+    $logging['channels'][$channel]['level'] =  env('APP_ENV') == 'production' ? 'warning' : 'debug';
     $logging['channels'][$channel]['permission'] = 0644;
     $logging['channels'][$channel]['bubble'] = false;
     $logging['channels'][$channel]['locking'] = false;

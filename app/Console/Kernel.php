@@ -18,7 +18,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
 //        $schedule->command(PruneFailedJobsCommand::class, ['--hours=72'])->dailyAt('00:00')->runInBackground()->withoutOverlapping(120);
-//        $schedule->command(LogClean::class, ['3'])->hourly()->runInBackground()->withoutOverlapping(120);
+        $schedule->command(LogClean::class, ['3'])->hourly()->runInBackground()->withoutOverlapping(120);
 //        $schedule->command(ChromeUpdateSubscribe::class)->hourly()->runInBackground()->withoutOverlapping(120);
 //        $schedule->command(WellKnownSoftwareUpdateSubscribe::class)->hourly()->runInBackground()->withoutOverlapping(120);
 //        $schedule->command(BilibiliSubscribe::class)->hourly()->runInBackground()->withoutOverlapping(120);

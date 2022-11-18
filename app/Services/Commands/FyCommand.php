@@ -23,7 +23,8 @@ class FyCommand extends BaseCommand
     public function execute(Message $message, Telegram $telegram, int $updateId): void
     {
         $chatId = $message->getChat()->getId();
-        $userId = $message->getFrom()->getId();
+        $user  = $message->getFrom();
+        $userId = $user->getId();
         $day = \App\Models\Message::queryCount($chatId, $userId, 0);
         $week = \App\Models\Message::queryCount($chatId, $userId, 1);
         $mounth = \App\Models\Message::queryCount($chatId, $userId, 2);
@@ -31,10 +32,12 @@ class FyCommand extends BaseCommand
             'chat_id' => $chatId,
             'text' => '',
         ];
-        $data['text'] .= "发言数如下(统计数据有 1 分钟延迟)：\n";
-        $data['text'] .= "当天发言：$day 条;\n";
-        $data['text'] .= "7 天内发言：$week 条;\n";
-        $data['text'] .= "30 天内发言：$mounth 条;\n";
+        $username  = $user->getUsername();
+        $nickename = $user->getFirstName().$user->getLastName();
+        $data['text'] .= "@{$username} 你好！{$nickename}, 发言数如下(数据有1分钟延迟)：\n";
+        $data['text'] .= "1. 当天发言：$day 条;\n";
+        $data['text'] .= "2. 7 天内发言：$week 条;\n";
+        $data['text'] .= "3. 30 天内发言：$mounth 条;\n";
         $this->dispatch(new SendMessageJob($data, null, 0));
     }
 }

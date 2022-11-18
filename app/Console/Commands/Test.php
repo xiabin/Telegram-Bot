@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Common\BotCommon;
 use App\Models\Message;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 
 class Test extends Command
 {
@@ -14,8 +15,7 @@ class Test extends Command
     public function handle(): int
     {
 
-        $data  =  Message::queryCount(-1001850206305,5370041724,0);
-        self::info($data);
+        Log::error(123);
         return self::SUCCESS;
     }
 }
